@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", serif;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    padding: 15px;
+    min-height: 100vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    overflow: hidden;
+}
+
+/* Username logic */
+
+.text {
+    margin-top: 30px;
+  }
+  .username-container {
+    position: fixed;
+    margin: 20px 0 40px;
+    width: 320px;
+    margin-top: -100px;
+    margin-left: -175px;
+    padding: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.6); /* White border */
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Glowing effect */
+    backdrop-filter: blur(5px); /* Blur effect */
+    text-align: center;
+    display: block;
+  }
+  
+  .username-container input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px #fff solid;
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 18px;
+    color: #fff;
+    outline: none;
+  }
+  
+  .username-container label {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    font-size: 18px;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  
+  .username-container input:focus + label,
+  .username-container input:not(:placeholder-shown) + label {
+    transform: translateY(-23px);
+    /* padding-top: 2px; */
+    /* padding-left: 10px; */
+    font-size: 14px;
+    color: lightgoldenrodyellow;
+    /* font-weight: bold; */
+  }
+
+  .username-container button{
+    width: 100%;
+  height: 6vh;
+  font-size: large;
+  border-radius: 10px;
+  padding: 6px;
+  background: linear-gradient(90deg, #03a9f4, #f441a5);
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin-top: 20px;
+  transition: 0.3s ease-in-out;
+  }
+  
+.main-container{
+    /* display: block; */
+    width: 415px;
+    padding: 25px;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 8px;
+    /* position: fixed; */
+    /* height: 50vh; */
+}
+
+:where(.main-container , .quiz-container, .result-container){
+    display: none;
+    position: fixed;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.13);
+}
+.main-container .title1{
+    color: white;
+    font-size: 1.5rem;
+}
+.main-container .config-option{
+    color: white;
+    margin-top: 25px;
+
+}
+.config-option .first-option-title{
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+.config-option button{
+    padding: 12px;
+    font-size: 0.5;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    background: white;
+    color: black;
+    /* border: 1px solid white; */
+    font-weight: bold;
+}
+.config-option .category-options{
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(2 , 1fr);
+}
+.config-option .question-options{
+    padding: 5px;
+}
+.question-options .question-option{
+    width: 4rem;
+}
+.start-quiz-btn{
+    margin-top: 30px;
+    /* border: none; */
+}
+.quiz-footer .next-question-btn:hover,.start-quiz-btn:hover,.result-container .try-again-btn:hover{
+    background-color: lightgray;
+    transform: scale(1.1);
+}
+.quiz-footer .next-question-btn,.start-quiz-btn,.result-container .try-again-btn{
+    padding: 10px;
+    border-radius: 8px;
+    /* background: linear-gradient(90deg,pink , blue); */
+    background: white;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+    width: 7rem;
+}
+.config-option button:hover{
+    background-color: lightgrey;
+    /* transform: scale(1.1); */
+}
+
+.quiz-container{
+    width: 480px;
+    display: none;
+    border: 1px solid white;
+    background: transparent;
+}
+.quiz-container .quiz-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 25px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.09);
+}
+.quiz-header .quiz-title{
+    font-size: 1.40rem;
+    font-weight: 700;
+    color: white;
+}
+.quiz-header .quiz-timer{
+    /* display: flex; */
+    width: 70px;
+    color: #fff;
+    align-items: center;
+    /* gap: 5px; */
+    padding: 7px 9px;
+    border-radius: 6px;
+    background: #32313C;
+}
+.quiz-container .quiz-content{
+    padding: 20px 25px 25px;
+}
+.quiz-content .answer-options{
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.quiz-content .question-test{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+}
+.quiz-content .answer-option{
+    padding: 13px 16px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #B5ACFF;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.quiz-content .answer-option:hover{
+    background-color: lightgray;
+}
+.quiz-container .quiz-footer{
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #c6c6c6;
+}
+.quiz-footer .next-question-btn{
+    /* display: inline-flex; */
+    gap: 5px;
+    align-items: center;
+    padding: 9px 17px;
+    font-weight: bold;
+    font-size: 110%;
+    color: black;
+}
+.quiz-footer .question-status{
+    font-weight: 500;
+    color: white;
+}
+.quiz-footer .question-status b,.result-container .result-message
+{
+    font-weight: 600;
+}
+
+/* result container */
+
+.result-container{
+    text-align: center;
+    padding: 40px;
+    width: 410px;
+}
+.result-container .result-title{
+    margin-top: 30px;
+}
+.result-container .result-message{
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.result-container .try-again-btn{
+    margin-top: 30px;
+    padding: 12px 20px;
+}
+
+/* background animation */
+
+.stars {
+    width: 200%;
+    height: 200vh;
+    position: absolute;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: moveStars 20s linear infinite, twinkle 5s infinite linear;
+}
+@keyframes moveStars {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(-50%) translateY(-50%); }
+}
+@keyframes twinkle {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+.nebula {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, rgba(0,0,255,0.2) 40%, transparent 80%);
+    animation: moveNebula 10s infinite linear;
+}
+@keyframes moveNebula {
+    0% { transform: translateX(-10%) translateY(-10%) scale(1); }
+    50% { transform: translateX(10%) translateY(10%) scale(1.2); }
+    100% { transform: translateX(-10%) translateY(-10%) scale(1); }
+}  
