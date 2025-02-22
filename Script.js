@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultContainer = document.querySelector(".result-container");
     const resultMessage = document.querySelector(".result-message");
     const tryAgainButton = document.querySelector(".try-again-btn");
+    const quizTitle = document.querySelector(".quiz-title");
     let selectedCategory = "";
     let selectedNumQuestions = 0;
     let currentQuestionIndex = 0;
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     usernameForm.addEventListener("submit", function (event) {
         event.preventDefault();
         if (usernameInput.value.trim() === "") {
-            alert("Please enter a username!");
+            alert("Please enter a valid username!");
             return;
         }
         usernameForm.style.display = "none";
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Please select the number of questions!");
             return;
         }
+        quizTitle.textContent = `${selectedCategory} Quiz`;
         mainContainer.style.display = "none";
         quizContainer.style.display = "block";
         startQuiz();
