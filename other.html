@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+    <script>
+        let username = "";
+        let category = "";
+        let numQuestions = 0;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = {
+            "Javascript": [
+                { question: "What is the output of `console.log(typeof null)`?", options: ["null", "undefined", "object", "string"], answer: "object" },
+                { question: "Which keyword is used to declare a variable in JavaScript?", options: ["var", "let", "const", "All of the above"], answer: "All of the above" },
+  { question: "What will `typeof NaN` return?", options: ["number", "NaN", "undefined", "string"], answer: "number" },
+  { question: "Which of the following is a JavaScript framework?", options: ["Django", "Flask", "React", "Laravel"], answer: "React" },
+  { question: "How do you write 'Hello World' in an alert box?", options: ["msg('Hello World');", "alert('Hello World');", "prompt('Hello World');", "console.log('Hello World');"], answer: "alert('Hello World');" },
+  { question: "Which symbol is used for comments in JavaScript?", options: ["//", "/* */", "Both A and B", "#"], answer: "Both A and B" },
+  { question: "Which method is used to round a number to the nearest integer?", options: ["Math.ceil()", "Math.round()", "Math.floor()", "Math.trunc()"], answer: "Math.round()" },
+  { question: "What does `isNaN('123')` return?", options: ["true", "false", "undefined", "null"], answer: "false" },
+  { question: "How do you declare a function in JavaScript?", options: ["function myFunc() {}", "def myFunc() {}", "void myFunc() {}", "fn myFunc() {}"], answer: "function myFunc() {}" },
+  { question: "Which method removes the last element from an array?", options: ["pop()", "shift()", "splice()", "slice()"], answer: "pop()" },
+  { question: "Which JavaScript data type represents true or false values?", options: ["String", "Number", "Boolean", "Object"], answer: "Boolean" },
+  { question: "How do you convert a string to a number in JavaScript?", options: ["parseInt()", "Number()", "Both A and B", "String()"], answer: "Both A and B" },
+  { question: "What will `console.log(2 == '2')` return?", options: ["true", "false", "Error", "NaN"], answer: "true" },
+  { question: "Which function is used to parse JSON in JavaScript?", options: ["JSON.parse()", "JSON.stringify()", "parseJSON()", "stringifyJSON()"], answer: "JSON.parse()" },
+  { question: "Which keyword is used to define a constant variable?", options: ["var", "let", "const", "static"], answer: "const" },
+  { question: "How do you check if an array includes a specific value?", options: ["array.has()", "array.includes()", "array.find()", "array.exists()"], answer: "array.includes()" },
+  { question: "Which operator is used for strict equality comparison?", options: ["==", "===", "!=", "!=="], answer: "===" },
+  { question: "What does `console.log(0.1 + 0.2 === 0.3)` return?", options: ["true", "false", "Error", "NaN"], answer: "false" },
+  { question: "Which method is used to join array elements into a string?", options: ["concat()", "join()", "toString()", "split()"], answer: "join()" },
+  { question: "Which function is used to delay execution in JavaScript?", options: ["setTimeout()", "setInterval()", "delay()", "wait()"], answer: "setTimeout()" },
+  { question: "How do you define an arrow function?", options: ["()=>{}", "function(){}", "{}=>", "fn(){}"], answer: "()=>{}" },
+  { question: "Which event occurs when a user clicks an HTML element?", options: ["onmouseover", "onchange", "onclick", "onkeydown"], answer: "onclick" },
+  { question: "What is `null` in JavaScript?", options: ["A value", "An object", "A data type", "Undefined"], answer: "An object" },
+  { question: "What does `map()` do in JavaScript?", options: ["Filters an array", "Modifies each element", "Sorts an array", "Finds an element"], answer: "Modifies each element" },
+  { question: "What will `typeof([])` return?", options: ["array", "object", "undefined", "string"], answer: "object" },
+  { question: "Which method adds an element to the end of an array?", options: ["push()", "unshift()", "concat()", "append()"], answer: "push()" },
+  { question: "Which loop is used to iterate over object properties?", options: ["for", "for...in", "for...of", "while"], answer: "for...in" }
+            ],
+            "Python": [
+            { question: "What is the output of `print(type(None))`?", options: ["NoneType", "None", "null", "undefined"], answer: "NoneType" },
+  { question: "Which keyword is used to define a function in Python?", options: ["func", "def", "function", "define"], answer: "def" },
+  { question: "What will `type(5/2)` return in Python 3?", options: ["int", "float", "double", "long"], answer: "float" },
+  { question: "Which of the following is used for comments in Python?", options: ["//", "#", "/* */", "--"], answer: "#" },
+  { question: "What is the output of `bool([])`?", options: ["True", "False", "None", "Error"], answer: "False" },
+  { question: "Which function is used to read user input in Python?", options: ["get_input()", "read()", "input()", "scan()"], answer: "input()" },
+  { question: "What does `len({1,2,2,3})` return?", options: ["3", "4", "Error", "None"], answer: "3" },
+  { question: "Which module is used for working with regular expressions in Python?", options: ["regex", "re", "match", "string"], answer: "re" },
+  { question: "What is the result of `3 * 'abc'`?", options: ["abcabcabc", "Error", "abc*3", "'abc abc abc'"], answer: "abcabcabc" },
+  { question: "Which of the following is a mutable data type in Python?", options: ["tuple", "list", "str", "int"], answer: "list" },
+  { question: "How do you create an empty dictionary?", options: ["{}", "[]", "dict()", "Both A and C"], answer: "Both A and C" },
+  { question: "Which keyword is used for exception handling in Python?", options: ["catch", "try", "error", "except"], answer: "try" },
+  { question: "What will `print(2 ** 3)` output?", options: ["5", "6", "8", "9"], answer: "8" },
+  { question: "How do you open a file in Python for reading?", options: ["open('file.txt', 'r')", "open('file.txt', 'w')", "open('file.txt', 'rb')", "open('file.txt', 'rw')"], answer: "open('file.txt', 'r')" },
+  { question: "Which of the following is a correct way to define a tuple?", options: ["(1,2,3)", "[1,2,3]", "{1,2,3}", "tuple(1,2,3)"], answer: "(1,2,3)" }
+            ],
+            "DS": [
+            { question: "Which data structure uses LIFO (Last In, First Out) principle?", options: ["Queue", "Stack", "Linked List", "Tree"], answer: "Stack" },
+  { question: "Which of the following data structures follows FIFO (First In, First Out) principle?", options: ["Stack", "Queue", "Heap", "Graph"], answer: "Queue" },
+  { question: "What is the time complexity of inserting an element at the beginning of an array?", options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"], answer: "O(n)" },
+  { question: "Which data structure is best suited for implementing recursion?", options: ["Queue", "Array", "Stack", "Linked List"], answer: "Stack" },
+  { question: "Which data structure is used for BFS (Breadth First Search) in graphs?", options: ["Stack", "Queue", "Heap", "Tree"], answer: "Queue" },
+  { question: "Which sorting algorithm has the best time complexity of O(n log n) in the worst case?", options: ["Bubble Sort", "Quick Sort", "Selection Sort", "Merge Sort"], answer: "Merge Sort" },
+  { question: "Which data structure is used in a priority queue?", options: ["Stack", "Queue", "Heap", "Graph"], answer: "Heap" },
+  { question: "Which operation is performed in O(1) time in a stack?", options: ["Push", "Pop", "Peek", "All of the above"], answer: "All of the above" },
+  { question: "What is the worst-case time complexity of binary search?", options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"], answer: "O(log n)" },
+  { question: "Which data structure allows insertion and deletion from both ends?", options: ["Queue", "Deque", "Stack", "Circular Queue"], answer: "Deque" },
+  { question: "Which traversal technique is used in a binary search tree (BST) to retrieve elements in sorted order?", options: ["Preorder", "Inorder", "Postorder", "Level order"], answer: "Inorder" },
+  { question: "Which searching algorithm works best when the list is sorted?", options: ["Linear Search", "Binary Search", "Jump Search", "All of the above"], answer: "Binary Search" },
+  { question: "Which data structure can be used to implement a graph?", options: ["Adjacency List", "Adjacency Matrix", "Both A and B", "None"], answer: "Both A and B" },
+  { question: "Which of the following is NOT a self-balancing binary search tree?", options: ["AVL Tree", "Red-Black Tree", "Binary Search Tree", "B Tree"], answer: "Binary Search Tree" },
+  { question: "What is the height of a balanced binary tree with n nodes?", options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"], answer: "O(log n)" }
+            ],
+            "DBMS": [
+            { question: "Which of the following is a type of database model?", options: ["Hierarchical", "Network", "Relational", "All of the above"], answer: "All of the above" },
+  { question: "Which language is used to query databases?", options: ["HTML", "SQL", "C++", "Python"], answer: "SQL" },
+  { question: "What does ACID stand for in DBMS?", options: ["Atomicity, Consistency, Isolation, Durability", "Automatic, Consistency, Integrity, Durability", "Access, Control, Integrity, Durability", "None of the above"], answer: "Atomicity, Consistency, Isolation, Durability" },
+  { question: "Which of the following is a valid SQL command to retrieve data?", options: ["FETCH", "SELECT", "EXTRACT", "GET"], answer: "SELECT" },
+  { question: "Which type of key uniquely identifies a record in a table?", options: ["Foreign Key", "Primary Key", "Candidate Key", "Super Key"], answer: "Primary Key" },
+  { question: "Which normal form ensures that there are no partial dependencies?", options: ["1NF", "2NF", "3NF", "BCNF"], answer: "2NF" },
+  { question: "What is the full form of DML?", options: ["Data Management Language", "Data Manipulation Language", "Database Management Language", "Data Modification Language"], answer: "Data Manipulation Language" },
+  { question: "Which of the following is a NoSQL database?", options: ["MongoDB", "MySQL", "PostgreSQL", "Oracle"], answer: "MongoDB" },
+  { question: "Which SQL clause is used to filter records?", options: ["WHERE", "ORDER BY", "GROUP BY", "HAVING"], answer: "WHERE" },
+  { question: "Which type of join returns only the matching rows from both tables?", options: ["LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "FULL OUTER JOIN"], answer: "INNER JOIN" }
+            ]
+        };
+
+        function enterName() {
+            username = document.getElementById("username").value;
+            if (username === "") {
+                alert("Please enter your name.");
+                return;
+            }
+            document.getElementById("nameInput").style.display = "none";
+            document.getElementById("categorySelection").style.display = "block";
+        }
+
+        function selectCategory(selectedCategory) {
+        category = selectedCategory;
+        
+        // Hide the category selection and show number of questions section
+        document.getElementById("numQuestionsSection").style.display = "block";
+
+        // Reset all category buttons to their default state
+        document.querySelectorAll('.category-option').forEach(btn => {
+            btn.style.backgroundColor = ''; // Reset any previous styles
+        });
+
+        // Apply background color to the selected category
+        document.querySelector(`#${selectedCategory.toLowerCase()}Category`).style.backgroundColor = 'lightblue';
+    }
+
+
+    function selectNumQuestions(selectedNum) {
+        numQuestions = selectedNum;
+
+        // Show the start quiz button when the number of questions is selected
+        document.getElementById("startQuizBtn").style.display = "block";  
+
+        // Reset background color for all question selection buttons
+        document.querySelectorAll('.question-option').forEach(btn => {
+            btn.style.backgroundColor = ''; // Reset background color
+        });
+
+        // Apply background color to the selected number of questions
+        document.querySelector(`#question-option-${selectedNum}`).style.backgroundColor = 'lightblue'; // Highlight selected button
+    }
+
+
+
+        function startQuiz() {
+            if (category === "" || numQuestions === 0) {
+                alert("Please select both category and number of questions.");
+                return;
+            }
+            document.getElementById("categorySelection").style.display = "none";
+            document.getElementById("quiz").style.display = "block";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+    // Check if there are still questions to load
+    if (currentQuestionIndex < numQuestions && currentQuestionIndex < questions[category].length) {
+        let currentQuestion = questions[category][currentQuestionIndex];
+        document.getElementById("question").innerText = currentQuestion.question;
+
+        let optionsHtml = "";
+        currentQuestion.options.forEach(option => {
+            optionsHtml += `<button class="option-btn" onclick="checkAnswer(this, '${option}')">${option}</button><br>`;
+        });
+
+        document.getElementById("options").innerHTML = optionsHtml;
+
+        // Update footer to show the current question
+        document.getElementById("numOfQuestions").innerText = `${currentQuestionIndex + 1} of ${numQuestions}`;
+
+        // Start the timer for the current question
+        startTimer();
+    } else {
+        // If no more questions, stop the timer and show the result page
+        clearInterval(countdown);
+        showResultPage();
+    }
+}
+
+        function checkAnswer(button, selectedOption) {
+            let correctAnswer = questions[category][currentQuestionIndex].answer;
+
+            // Disable all buttons to prevent multiple clicks
+            let buttons = document.querySelectorAll(".option-btn");
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedOption === correctAnswer) {
+                score++; // Increment score if answer is correct
+                button.style.backgroundColor = "lightgreen"; // Right answer
+                button.style.border = "2px solid green";
+            } else {
+                button.style.backgroundColor = "LightCoral"; // Wrong answer
+                button.style.border = "2px solid red";
+                button.style.fontWeight = "bold";
+                buttons.forEach(btn => {
+                    if (btn.innerText === correctAnswer) {
+                        btn.style.backgroundColor = "lightgreen"; // Highlight correct answer
+                        btn.style.border = "2px solid green";
+                    }
+                });
+            }
+
+            clearInterval(countdown); // Stop the timer when an answer is selected
+            setTimeout(() => {
+                currentQuestionIndex++;
+                loadQuestion();
+            }, 1000);
+        }
+
+        let timeLeft;
+        let countdown;
+
+        function startTimer() {
+            // Reset the timer to 30 seconds
+            timeLeft = 30;
+            document.getElementById("timer").innerText = `${timeLeft}s`;
+
+            // Clear any existing interval to avoid overlapping timers
+            if (countdown) {
+                clearInterval(countdown);
+            }
+
+            // Start the countdown
+            countdown = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    // Automatically move to the next question when time is up
+                    currentQuestionIndex++;
+                    loadQuestion();
+                    startTimer();
+                } else {
+                    document.getElementById("timer").innerText = `${timeLeft}s`;
+                    timeLeft--;
+                }
+            }, 1000);
+        }
+
+        function showResultPage() {
+            // Hide the quiz section
+            document.getElementById("quiz").style.display = "none";
+
+            // Get the result container and show it
+            const resultContainer = document.querySelector(".result-container");
+            resultContainer.style.display = "block"; 
+
+            // Dynamically set the result message
+            const resultMessage = `
+                You answered <b>${score}</b> out of <b>${numQuestions}</b> questions correctly.
+                ${getEffortMessage(score, numQuestions)}
+            `;
+            resultContainer.querySelector(".result-message").innerHTML = resultMessage;
+        }
+
+        function getEffortMessage(score, totalQuestions) {
+            // Customize the effort message based on the score
+            if (score === totalQuestions) {
+                return "Great effort! Keep it up!";
+            } else if (score >= totalQuestions / 2) {
+                return "Great effort! Keep it up!";
+            } else {
+                return "Great effort! Keep it up!!";
+            }
+        }
+
+
+        const categoryButtons = document.querySelectorAll(".category-option");
+        categoryButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            selectedCategory = this.id;
+            categoryButtons.forEach(btn => btn.classList.remove("selected"));
+            this.classList.add("selected");
+            
+        });
+    });
+    </script>
+    <!-- <link rel="stylesheet" href="extra.css"> -->
+    <link rel="stylesheet" href="extra.css">
+</head>
+<body>
+    <!-- <div class="stars"></div>
+    <div class="nebula"></div>  -->
+    
+    <div id="nameInput">
+        <!-- <h2>Enter Your Name:</h2> -->
+        <input type="text" id="username" placeholder="Your name">
+        <button onclick="enterName()">Next</button>
+    </div>
+
+    <!-- Category Selection -->
+    <div id="categorySelection" style="display: none;">
+        <div class="config-option">
+            <h2 class="title1">Select Category:</h2><br>
+            <div class="category-options">
+                <button id="jsCategory" onclick="selectCategory('Javascript')" class="category-option">Javascript</button>
+                <button id="pythonCategory" onclick="selectCategory('Python')" class="category-option">Python</button>
+                <button id="dsCategory" onclick="selectCategory('DS')" class="category-option">DS</button>
+                <button id="dbmsCategory" onclick="selectCategory('DBMS')" class="category-option">DBMS</button>
+            </div>
+        </div>
+         
+        <!-- Number of Questions Section -->
+        <div id="numQuestionsSection" style="margin-top: 40px;" class="config-option">
+            <h2>Select Number of Questions:</h2>
+            <div class="question-options">
+                <button id="question-option-5" onclick="selectNumQuestions(5)" class="question-option">05</button>
+                <button id="question-option-10" onclick="selectNumQuestions(10)" class="question-option">10</button>
+                <button id="question-option-15" onclick="selectNumQuestions(15)" class="question-option">15</button>
+                <button id="question-option-20" onclick="selectNumQuestions(20)" class="question-option">20</button>
+                <button id="question-option-25" onclick="selectNumQuestions(25)" class="question-option">25</button>
+            </div>
+        </div>
+    
+        <button id="startQuizBtn" class="start-quiz-btn" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+
+    <div class="quiz-container" id="quiz" style="display: none;">
+        <header class="quiz-header">
+            <h2 class="quiz-title">Quiz Application</h2>
+            <div class="quiz-timer">
+                <p class="time-duration" id="timer">30s</p>
+            </div>
+        </header>
+        <hr>
+        <div class="quiz-content">
+            <h1 class="question-test" id="question"></h1>
+            <div class="answer-options" id="options">
+            </div>
+        </div>
+
+        <div class="quiz-footer" id="numOfQuestions" style="color: white;">
+            <p class="question-status" id="numOfQuestions"><b></b></p>
+        </div>
+    </div>
+
+    <div class="result-container" style="display: none;">
+        <p class="result-message">Your answered <b>0</b> out of <b>0</b> questions correctly</p>
+    </div>
+</body>
+</html>
